@@ -2,8 +2,7 @@
 # MAGIC %md
 # MAGIC # Generative AI Foundation
 # MAGIC
-# MAGIC ## GenAI & Maturity curve
-# MAGIC
+# MAGIC ### GenAI & Maturity curve
 # MAGIC
 # MAGIC
 # MAGIC Deploying GenAI can be done in multiple ways:
@@ -20,8 +19,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC
-# MAGIC ## Prompt Engineering Use Cases --  Applications with LLMs
+# MAGIC ## Learning Objectives
 # MAGIC
 # MAGIC In this notebook, we'll take a whirlwind tour of some top common applications using Large Language Models (LLMs):
 # MAGIC * Summarization
@@ -34,7 +32,6 @@
 # MAGIC
 # MAGIC We will then look at Hugging Face APIs in more detail to understand how to configure LLM pipelines.
 # MAGIC
-# MAGIC ## Learning Objectives
 # MAGIC 1. Use a variety of existing models for a variety of common applications.
 # MAGIC 1. Understand basic prompt engineering.
 # MAGIC 1. Understand zero-shot learning Vs few-shot learning
@@ -51,7 +48,7 @@ from transformers import pipeline
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Hugging Face, Transformers Models, and Tokenizers
+# MAGIC ## Hugging Face - Gateway of Generative AI
 # MAGIC Let's navigate to [Hugging Face model hub](https://huggingface.co/models) and explore some models that are on the platform. You will see that (most) models come with descriptions of their task, the data that they were trained on, as well as their associated `Tokenizer`
 # MAGIC
 # MAGIC ### Transformers Models
@@ -63,7 +60,7 @@ from transformers import pipeline
 # COMMAND ----------
 
 # MAGIC %md 
-# MAGIC ## Prompt Engineering User Cases -- Applications with LLMs
+# MAGIC ## Hugging Face Use Cases
 # MAGIC
 # MAGIC The goal of this section is to get your feet wet with several LLM applications and to show how easy it can be to get started with LLMs.
 # MAGIC
@@ -114,7 +111,11 @@ logging.set_verbosity(40)
 # COMMAND ----------
 
 text_to_summarize= """
-                    Barrington DeVaughn Hendricks (born October 22, 1989), known professionally as JPEGMafia (stylized in all caps), is an American rapper, singer, and record producer born in New York City and based in Baltimore, Maryland. His 2018 album Veteran, released through Deathbomb Arc, received widespread critical acclaim and was featured on many year-end lists. It was followed by 2019's All My Heroes Are Cornballs and 2021's LP!, released to further critical acclaim. 
+                    We launched GPT-4o in the API—our new flagship model that’s as smart as GPT-4 Turbo and much more efficient. We’re passing on the benefits of the model’s efficiencies to developers, including:
+                    50% lower pricing. GPT-4o is 50% cheaper than GPT-4 Turbo, across both input tokens ($5 per 1 million tokens) and output tokens ($15 per 1 million tokens).
+                    2x faster latency. GPT-4o is 2x faster than GPT-4 Turbo.
+                    5x higher rate limits. Over the coming weeks, GPT-4o will ramp to 5x those of GPT-4 Turbo—up to 10 million tokens per minute for developers with high usage.
+                    GPT-4o in the API currently supports text and vision capabilities. It has better vision capabilities and improved support for non-English languages compared to GPT-4 Turbo. It has a 128k context window and has a knowledge cut-off date of October 2023. We plan to launch support for GPT-4o’s new audio and video capabilities in the API to a small group of trusted partners in the coming weeks. 
                     """
 
 pipe(text_to_summarize)
@@ -207,33 +208,27 @@ t5_small_pipeline(
 
 # MAGIC %md
 # MAGIC %md
-# MAGIC <img src="https://daxg39y63pxwu.cloudfront.net/images/blog/langchain/LangChain.webp" alt="LangChain" width="700"/>
+# MAGIC <img src="https://daxg39y63pxwu.cloudfront.net/images/blog/langchain/LangChain.webp" alt="LangChain" width="600"/>
 # MAGIC
-# MAGIC
-# MAGIC ## LangChain 
-# MAGIC LangChain is a framework designed to simplify the creation of applications using large It enables applications that:
-# MAGIC     - Are context-aware: connect a language model to sources of context (prompt instructions, few shot examples, content to ground its response in, etc.)
-# MAGIC     - Reason: rely on a language model to reason (about how to answer based on provided context, what actions to take, etc.) language models.
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <table border=0 cellpadding=0 cellspacing=0>
-# MAGIC <tr>
-# MAGIC   <td>
-# MAGIC     <h1>DBRX Announcment</h1><br/>
-# MAGIC     Get started with DBRX!
-# MAGIC     <ul>
-# MAGIC       <li>DBRX is a transformer-based decoder-only large language model (LLM) that was trained using next-token prediction. It uses a fine-grained mixture-of-experts (MoE) architecture with 132B total parameters of which 36B parameters are active on any input. It was pre-trained on 12T tokens of text and code data. </u></li>
-# MAGIC       <li>Foundation Model APIs (<a href="https://docs.databricks.com/en/security/secrets/example-secret-workflow.html">AWS</a>)
-# MAGIC       <li>AI Playground chat interface</li>
-# MAGIC     </ul>
-# MAGIC   </td>
-# MAGIC <td>
-# MAGIC   <img src="https://www.databricks.com/sites/default/files/2024-03/introducing-dbrx.gif" width="1000"/>
-# MAGIC </td>
-# MAGIC </tr>
-# MAGIC </table>
+# MAGIC ### LangChain Introduction
+# MAGIC LangChain is a framework designed to simplify the creation of applications using large It enables applications that:
+# MAGIC   1. Are context-aware: connect a language model to sources of context (prompt instructions, few shot examples, content to ground its response in, etc.)
+# MAGIC   2. Reason: rely on a language model to reason (about how to answer based on provided context, what actions to take, etc.) language models.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### DBRX Introduction
+# MAGIC
+# MAGIC Get started with DBRX!
+# MAGIC - DBRX is a transformer-based decoder-only large language model (LLM) that was trained using next-token prediction. It uses a fine-grained mixture-of-experts (MoE) architecture with 132B total parameters of which 36B parameters are active on any input. It was pre-trained on 12T tokens of text and code data.
+# MAGIC - Foundation Model APIs (AWS)
+# MAGIC - AI Playground chat interface
+# MAGIC
 
 # COMMAND ----------
 
@@ -262,6 +257,11 @@ llama_model.predict(user_question)
 
 user_question = "How can I speed up my Spark join operation?"
 dbrx_model.predict(user_question)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Simple Prompt with DBRX
 
 # COMMAND ----------
 
@@ -354,14 +354,13 @@ for feedback in feedback_examples:
 
 # COMMAND ----------
 
-# DBTITLE 1,Add your openai API
 import openai
 # Replace with your actual OpenAI API key
 openai.api_key = 'xxxxxxx'
 
 # COMMAND ----------
 
-# DBTITLE 1,Example with OpenAI
+# DBTITLE 1,Example with OpenAI API
 # This example uses OpenAI's zero-shot learning model
 import openai
 
@@ -460,10 +459,6 @@ final_prompt = ChatPromptTemplate.from_messages(
 
 # COMMAND ----------
 
-print(final_prompt)
-
-# COMMAND ----------
-
 from langchain.chains.llm import LLMChain
 # Initialize the ChatDatabricks model with endpoint and token settings
 chat_model = ChatDatabricks(endpoint="databricks-dbrx-instruct", max_tokens=200)
@@ -537,12 +532,13 @@ for review in reviews:
 # MAGIC %md
 # MAGIC <img src="https://miro.medium.com/v2/resize:fit:1400/1*OVqzvRSNWloHMYCF1EZtqg.png" alt="mlflow" width="700"/>
 # MAGIC
-# MAGIC # Logging and Registering with MLflow
-# MAGIC Now that we have our model, we want to log the model and its artifacts, so we can version it, deploy it, and also share it with other users.
 
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC # LLMs lifecycle with MLflow
+# MAGIC Now that we have our model, we want to log the model and its artifacts, so we can version it, deploy it, and also share it with other users.
+# MAGIC
 # MAGIC ### Create a Model Signature
 # MAGIC For LLMs, we need to generate a [model signature](https://mlflow.org/docs/latest/models.html#model-signature-and-input-example).
 # MAGIC Model signatures show the expected input and output types for a model. Which makes quality assurance for downstream serving easier
