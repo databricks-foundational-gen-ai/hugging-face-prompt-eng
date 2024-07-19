@@ -4,8 +4,7 @@
 # COMMAND ----------
 
 from datasets import load_dataset
-from transformers import pipeline
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 from transformers.utils import logging
 
 # COMMAND ----------
@@ -30,7 +29,11 @@ spark.sql(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
 
 # COMMAND ----------
 
-dbutils.library.restartPython()
+# MAGIC %pip install langchain==0.1.5 mlflow[databricks] sqlalchemy
+# MAGIC %pip install --upgrade sqlalchemy
+# MAGIC %pip install --upgrade mlflow
+# MAGIC dbutils.library.restartPython()
+# MAGIC
 
 # COMMAND ----------
 
