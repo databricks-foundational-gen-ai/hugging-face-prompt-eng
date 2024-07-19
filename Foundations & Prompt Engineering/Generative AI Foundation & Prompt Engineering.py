@@ -356,13 +356,14 @@ for feedback in feedback_examples:
 
 import openai
 # Replace with your actual OpenAI API key
-openai.api_key = 'xxxxxxx'
+openai.api_key = 'xxxx'
 
 # COMMAND ----------
 
 # DBTITLE 1,Example with OpenAI API
 # This example uses OpenAI's zero-shot learning model
-import openai
+from openai import OpenAI
+client = OpenAI(api_key=openai.api_key)
 
 def categorize_feedback(feedback: str):
     """
@@ -370,34 +371,30 @@ def categorize_feedback(feedback: str):
     Parameters:
     - feedback (str): The customer feedback text to be categorized.
     """
-    categories = ["Product Quality", 
-                  "Customer Service", 
-                  "Pricing", 
-                  "Technical Support", 
+    categories = ["Product Quality",
+                  "Customer Service",
+                  "Pricing",
+                  "Technical Support",
                   "Delivery"]
     prompt = f"Feedback: \"{feedback}\"\n\nCategories: {', '.join(categories)}\n\nThis feedback is most likely about:"
-
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": prompt},
-            {"role": "user", "content": " "}
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
         ],
         max_tokens=60,
         stop=["\n"]
     )
-
     # Extract and print the predicted category from the response
     predicted_category = response.choices[0].message.content.strip()
     print(f"Predicted Category: {predicted_category}")
-
 # Example usage
 feedback_examples = [
     "I'm really disappointed with the late delivery of my order. It was supposed to arrive last week!",
     "Your support team did a fantastic job helping me resolve an issue with my account.",
     "I found the pricing to be quite competitive compared to other brands."
 ]
-
 for feedback in feedback_examples:
     categorize_feedback(feedback)
     print("-----")
@@ -493,17 +490,13 @@ def extract_diagnosis_code(review: str):
     Examples:
     Text: "A patient presents with a fever, cough, and shortness of breath. The patient has been diagnosed with pneumonia."
     Feature: J18.9
-
     Text: "The individual complains of severe, throbbing headache, nausea, and is extremely sensitive to light. A diagnosis of migraine without aura is made."
     Feature: G43.909
-
     Text: "Examination reveals elevated blood pressure readings on three separate occasions, leading to a diagnosis of primary hypertension."
     Feature: I10
     """
-
     prompt = f"{examples}\nText: \"{review}\"\nFeature:"
-
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": prompt},
@@ -512,17 +505,14 @@ def extract_diagnosis_code(review: str):
         max_tokens=60,
         stop=["\n"]
     )
-
-    # Extract and print the predicted product features from the response
-    predicted_features = response['choices'][0]['message']['content'].strip()
+    # Extract and print the predicted category from the response
+    predicted_features = response.choices[0].message.content.strip()
     print(f"Extracted Features: {predicted_features}")
-
 # Example usage
 reviews = [
     "A child is brought in with a red, itchy rash and small blisters on the skin, diagnosed as chickenpox.",
     "The patient reports chronic pain in the lower back area, worsening with movement. Diagnosis: lumbar spine osteoarthritis.",
 ]
-
 for review in reviews:
     extract_diagnosis_code(review)
     print("-----")
