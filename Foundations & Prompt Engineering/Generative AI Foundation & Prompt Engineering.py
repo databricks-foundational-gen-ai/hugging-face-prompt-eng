@@ -38,6 +38,15 @@
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC #### Runtime: DBR 15.3 ML
+
+# COMMAND ----------
+
+dbutils.widgets.text("catalog_name","main")
+
+# COMMAND ----------
+
 # MAGIC %run ./init/config $catalog_name=$catalog_name
 
 # COMMAND ----------
@@ -232,11 +241,6 @@ t5_small_pipeline(
 
 # COMMAND ----------
 
-# MAGIC %pip install langchain==0.1.5 mlflow[databricks] sqlalchemy
-# MAGIC dbutils.library.restartPython()
-
-# COMMAND ----------
-
 import os
 from langchain.llms import HuggingFacePipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
@@ -262,10 +266,6 @@ dbrx_model.predict(user_question)
 
 # MAGIC %md
 # MAGIC ### Simple Prompt with DBRX
-
-# COMMAND ----------
-
-# MAGIC %pip install --upgrade sqlalchemy
 
 # COMMAND ----------
 
@@ -554,11 +554,6 @@ input_columns = [
 ]
 signature = infer_signature(input_columns, prediction)
 
-
-# COMMAND ----------
-
-# MAGIC %pip install --upgrade mlflow
-# MAGIC dbutils.library.restartPython()
 
 # COMMAND ----------
 
